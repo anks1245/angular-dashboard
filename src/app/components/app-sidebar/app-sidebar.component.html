@@ -1,0 +1,26 @@
+
+<p-toast />
+<p-confirmdialog />
+<aside class="bg-primary shadow-2 overflow-hidden h-screen" [ngClass]="visible?'show':'collapse'">
+    <h2 class="text-lg font-bold mb-4"><i class="pi pi-truck mr-2"></i>Food Wagon</h2>
+    <ul class="list-none p-0 m-0 text-sm" [ngClass]="visible ? 'show-content' : 'hide-content'">
+      <li class="p-2 m-1 cursor-pointer hover:bg-primary-reverse" [ngClass]="{ 'bg-primary-reverse': isActive('/home') }" (click)="navigate('/home')">
+        <i class="pi pi-home mr-2"></i> Dashboard
+      </li>
+      <li class="p-2 m-1 cursor-pointer hover:bg-primary-reverse" [ngClass]="{ 'bg-primary-reverse': isActive('/orders') }" (click)="navigate('/orders')">
+        <i class="pi pi-shopping-cart mr-2"></i> Orders
+      </li>
+      <li class="p-2 m-1 cursor-pointer hover:bg-primary-reverse" [ngClass]="{ 'bg-primary-reverse': isActive('/customers') }" (click)="navigate('/customers')">
+        <i class="pi pi-users mr-2"></i> Customers
+      </li>
+      <li class="p-2 m-1 cursor-pointer hover:bg-primary-reverse" [ngClass]="{ 'bg-primary-reverse': isActive('/menus') }" (click)="navigate('/menus')">
+        <i class="pi pi-list mr-2"></i> Menus
+      </li>
+      <li class="p-2 m-1 cursor-pointer hover:bg-primary-reverse" [ngClass]="{ 'bg-primary-reverse': isActive('/analytics') }" (click)="navigate('/analytics')">
+        <i class="pi pi-chart-line mr-2"></i> Analytics
+      </li>
+      <li class="p-2 m-1 cursor-pointer hover:bg-primary-reverse" (click)="confirmLogout($event)">
+        <i class="pi pi-sign-out mr-2"></i> Logout
+      </li>
+    </ul>
+  </aside>

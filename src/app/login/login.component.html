@@ -1,0 +1,35 @@
+<div class="flex justify-content-center flex-wrap ">
+    <div class="card flex flex-column bg-primary-reverse m-6">
+        <h1>Login</h1>
+        <form [formGroup]="formGroup" (ngSubmit)="login()">
+            <div class="input-group">
+                <p-floatlabel variant="on">
+                    <input id="username" pInputText formControlName="username" />
+                    <label for="username">Username</label>
+                </p-floatlabel>
+                <div class="input-message">
+                    <small class="p-error" *ngIf="formGroup.get('username')?.touched && formGroup.get('username')?.invalid">
+                        Username is required
+                    </small>
+                </div>
+                
+            </div>
+            <div class="input-group">
+                <p-floatlabel variant="on">
+                    <p-password formControlName="password" inputId="password" [toggleMask]="true"/>
+                    <label for="password">Password</label>
+                </p-floatlabel>
+                <div class="input-message">
+                    <small class="p-error" *ngIf="formGroup.get('password')?.touched && formGroup.get('password')?.invalid">
+                        Password is required
+                    </small>
+                </div>
+            </div>
+            
+            
+            <p-button label="Login" styleClass="full-width-button" type="submit"></p-button>
+        </form>
+       
+    </div>
+</div>
+
