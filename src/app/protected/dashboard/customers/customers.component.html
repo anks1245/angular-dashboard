@@ -7,7 +7,7 @@
         [rowsPerPageOptions]="[10, 25, 50]"
         [loading]="loading"
         [paginator]="true"
-        [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+        [globalFilterFields]="['name', 'country.name']"
         [tableStyle]="{ 'min-width': '30rem' }"
     >
         <ng-template #header>
@@ -25,10 +25,10 @@
                     <p-columnFilter type="text" field="country.name" placeholder="Search by country" ariaLabel="Filter Country"></p-columnFilter>
                 </th>
                 <th>
-                    
+                    <!-- blank th for maintaing the designing -->
                 </th>
                 <th>
-                    
+                    <!-- blank th for maintaing the designing -->
                 </th>
             </tr>
         </ng-template>
