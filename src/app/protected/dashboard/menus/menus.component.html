@@ -1,1 +1,26 @@
-<p>menus works!</p>
+
+
+<div class="card p-2 bg-white shadow-1">
+    <p-table [value]="menu" [tableStyle]="{ 'min-width': '50rem' }">
+         <ng-template #header>
+            <tr>
+                <th>Food</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-product>
+            <tr>
+                <td class="flex align-items-center"><img style="height: 50px; width: 60px;" class="m-2" [src]="product.image"/> {{ product.name }}</td>
+                <td>{{ product.price }}/-</td>
+                <td>{{ product.description }}</td>
+                <td>
+                    <p-button class="m-1" icon="pi pi-arrow-right" [rounded]="true" severity="success" [outlined]="true" />
+                    <!-- <p-button class="m-1" icon="pi pi-search" [rounded]="true" severity="success" [outlined]="true" />
+                    <p-button class="m-1" icon="pi pi-search" [rounded]="true" severity="success" [outlined]="true" /> -->
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
