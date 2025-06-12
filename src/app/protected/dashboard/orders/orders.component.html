@@ -1,4 +1,17 @@
 <div class="card p-2 bg-white shadow-1">
+    <div class="flex justify-content-between align-items-center px-2">
+        <h3>Extras</h3>
+        <div>
+            <p-inputgroup>
+                <input pInputText placeholder="Search Here..." [(ngModel)]="search"/>
+                <p-inputgroup-addon>
+                    <p-button *ngIf="isSearched" icon="pi pi-times" severity="secondary" (onClick)="clearSearch()"/>
+                    <p-button *ngIf="!isSearched" icon="pi pi-search" severity="secondary" (onClick)="searchData()"/>
+                </p-inputgroup-addon>
+            </p-inputgroup>
+        </div>  
+    </div>
+    
     <!-- <p-inputgroup>
         <input pInputText placeholder="Keyword" [(ngModel)]="search"/>
         <p-inputgroup-addon>

@@ -13,7 +13,7 @@ export class ExtrasService {
   getProducts(limit:number, skip:number, search: string): Observable<Extras>{
     let q = `https://dummyjson.com/products?limit=${limit}&skip=${skip}&select=title,price,tags,ratings`
     if(search != ''){
-      q += `&q=${search}`
+      q = `https://dummyjson.com/products/search?limit=${limit}&skip=${skip}&select=title,price,tags,ratings&q=${search}`
     }
     return this.httpClient.get<Extras>(q)
   }

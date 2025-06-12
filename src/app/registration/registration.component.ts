@@ -9,47 +9,37 @@ import { Router, RouterModule } from '@angular/router';
 import { getFieldErrorMessage } from '../utils/FieldErrorHandler';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-registration',
   imports: [CommonModule, ReactiveFormsModule, FloatLabelModule, ButtonModule, PasswordModule, InputTextModule, RouterModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  templateUrl: './registration.component.html',
+  styleUrl: './registration.component.scss'
 })
-export class LoginComponent implements OnInit{
-  
+export class RegistrationComponent {
   formGroup!: FormGroup;
   router = inject(Router);
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
+      name: new FormControl('',[Validators.required]),
+      age: new FormControl('',[Validators.required, Validators.min(0), Validators.max(100)]),
+      address: new FormControl('',[Validators.required]),
+      phone: new FormControl('',[Validators.required, Validators.pattern(/^(\+\d{1,3}[- ]?)?\d{10}$/)]),
+      department: new FormControl('',[Validators.required]),
       email: new FormControl('',[Validators.required, Validators.email]),
       password: new FormControl('',[Validators.required, Validators.minLength(6)])
     })  
   }
-  // username = new FormControl()
-  // password = new FormControl()
 
-  login(){
-    console.log("clicked");
-    
+  createAccount(){
     if(this.formGroup.valid){
       const formValues = this.formGroup.value;
       console.log('Form Submitted:', formValues);
-
-      // Access individual fields if needed
-      console.log('Username:', formValues.email);
-      console.log('Password:', formValues.password);
-
-      localStorage.setItem("token","abd")
-      this.router.navigate(['/dashboard'],{ replaceUrl: true })
+      alert("Account created")
 
     }else{
       console.log('Form is invalid');
       this.formGroup.markAllAsTouched();
     }
-  }
-
-  navigate(path: string){
-    this.router.navigate([path])
   }
 
   getErrorMessage(controlName: string): string | null {

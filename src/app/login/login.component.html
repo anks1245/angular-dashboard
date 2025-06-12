@@ -4,12 +4,12 @@
         <form [formGroup]="formGroup" (ngSubmit)="login()">
             <div class="input-group">
                 <p-floatlabel variant="on">
-                    <input id="username" pInputText formControlName="username" />
+                    <input id="username" pInputText formControlName="email" />
                     <label for="username">Username</label>
                 </p-floatlabel>
                 <div class="input-message">
-                    <small class="p-error" *ngIf="formGroup.get('username')?.touched && formGroup.get('username')?.invalid">
-                        Username is required
+                    <small class="p-error" *ngIf="formGroup.get('email')?.touched && formGroup.get('email')?.invalid">
+                        {{ getErrorMessage('email') }}
                     </small>
                 </div>
                 
@@ -21,13 +21,17 @@
                 </p-floatlabel>
                 <div class="input-message">
                     <small class="p-error" *ngIf="formGroup.get('password')?.touched && formGroup.get('password')?.invalid">
-                        Password is required
+                        {{ getErrorMessage('password') }}
                     </small>
                 </div>
             </div>
             
             
             <p-button label="Login" styleClass="full-width-button" type="submit"></p-button>
+            <div class="flex justify-content-center m-2">
+                <span>OR</span>
+            </div>
+            <p-button label="Create an account" variant="outlined" styleClass="full-width-button" (click)="navigate('/create-account')"></p-button>
         </form>
        
     </div>
