@@ -14,16 +14,19 @@ import { ButtonModule } from 'primeng/button';
 export class MenusComponent implements OnInit{
   menuService = inject(MenusService);
   menu!: Menu[];
+  loading = true
 
   ngOnInit(): void {
     this.menuService.getMenu().subscribe({
       next:(menu)=>{
         // this.menu = data
+        this.loading = false
         console.log(menu);
         this.menu = menu
         
       },
       error:(error)=>{
+        this.loading = false
         console.log(error)
       }
     })
