@@ -1,3 +1,5 @@
+<p-toast />
+<p-confirmdialog  [style]="{ width: '90vw', maxWidth: '400px' }"/>
 <div class="card p-2 bg-white shadow-1">
     <p-table
         #dt2
@@ -7,42 +9,81 @@
         [rowsPerPageOptions]="[10, 25, 50]"
         [loading]="loading"
         [paginator]="true"
-        [globalFilterFields]="['name', 'country.name']"
-        [tableStyle]="{ 'min-width': '30rem' }"
+        [globalFilterFields]="['id','name', 'country.name', 'representative.name']"
+        [tableStyle]="{ 'min-width': '50rem', }"
         [resizableColumns]="true"
+        size="small"
+        editMode="row"
+        (sortFunction)="customSort($event)"
+        [customSort]="true"
     >
         <ng-template #header>
             <tr>
-                <th style="width:30%">Name</th>
-                <th style="width:20%">Country</th>
-                <th style="width:30%">Agent</th>
-                <th style="width:20%">Status</th>
+                <th style="width: 10%;">Sl no.</th>
+                <th pSortableColumn="id" style="width: 10%;">ID <p-sortIcon field="id" /></th>
+                <th pSortableColumn="name" style="width: 20%;">Name <p-sortIcon field="name" /></th>
+                <th pSortableColumn="country" style="width: 20%;">Country <p-sortIcon field="country" /></th>
+                <th pSortableColumn="agent" style="width: 20%;">Agent <p-sortIcon field="agent" /></th>
+                <th style="width: 20%;">Action</th>
             </tr>
             <tr>
                 <th>
-                    <p-columnFilter type="text" field="name" placeholder="Search by name" ariaLabel="Filter Name"></p-columnFilter>
+
+                </th>
+                <th >
+                    <p-columnFilter class="compact-filter" type="text" field="id" placeholder="Search by ID" ariaLabel="Filter ID"></p-columnFilter>
                 </th>
                 <th>
-                    <p-columnFilter type="text" field="country.name" placeholder="Search by country" ariaLabel="Filter Country"></p-columnFilter>
+                    <p-columnFilter class="compact-filter" type="text" field="name" placeholder="Search by name" ariaLabel="Filter Name"></p-columnFilter>
                 </th>
                 <th>
-                    <!-- blank th for maintaing the designing -->
+                    <p-columnFilter class="compact-filter" type="text" field="country.name" placeholder="Search by country" ariaLabel="Filter Country"></p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter class="compact-filter" type="text" field="representative.name" placeholder="Search by Agent" ariaLabel="Filter Agent"></p-columnFilter>
                 </th>
                 <th>
                     <!-- blank th for maintaing the designing -->
                 </th>
             </tr>
         </ng-template>
-        <ng-template #body let-customer>
-            <tr>
+        <ng-template #body let-customer let-editing="editing" let-rowIndex="rowIndex">
+            <tr [pEditableRow]="customer">
                 <td>
-                    {{ customer.name }}
+                    {{rowIndex+1}}
                 </td>
                 <td>
-                    <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                    {{customer.id}}
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template #input>
+                            <input
+                                pInputText type="text"
+                                [(ngModel)]="customer.name" />
+                        </ng-template>
+                        <ng-template #output>
+                            {{ customer.name }}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template #input>
+                            <p-select
+                                [options]="countries"
+                                appendTo="body"
+                                [(ngModel)]="customer.country.name"
+                                [style]="{'width':'100%'}" />
+                        </ng-template>
+                        <ng-template #output>
+                            {{ customer.country.name }}
+                        </ng-template>
+                    </p-cellEditor>
+                    <!-- <div class="flex items-center gap-2">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px; height: 10px;" />
                         <span>{{ customer.country.name }}</span>
-                    </div>
+                    </div> -->
                 </td>
                 <td>
                     <div class="flex align-items-center gap-2">
@@ -51,7 +92,49 @@
                     </div>
                 </td>
                 <td>
-                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                    <div class="flex items-center justify-center gap-2">
+                        <!-- <button
+                            *ngIf="!editing"
+                            pButton
+                            pRipple
+                            type="button"
+                            pInitEditableRow
+                            icon="pi pi-pencil"
+                            (click)="onRowEditInit(customer)"
+                            text
+                            rounded
+                            severity="secondary"
+                        ></button>
+                        <button
+                            *ngIf="editing"
+                            pButton
+                            pRipple
+                            type="button"
+                            pSaveEditableRow
+                            icon="pi pi-check"
+                            (click)="onRowEditSave(customer)"
+                            text
+                            rounded
+                            severity="secondary"
+                        ></button>
+                        <button
+                            *ngIf="editing"
+                            pButton
+                            pRipple
+                            type="button"
+                            pCancelEditableRow
+                            icon="pi pi-times"
+                            (click)="onRowEditCancel(customer, rowIndex)"
+                            text
+                            rounded
+                            severity="secondary"
+                        ></button> -->
+                        <p-button *ngIf="editing" pSaveEditableRow class="m-1" icon="pi pi-check" size="small" [rounded]="true" severity="success" (onClick)="onRowEditSave(customer)" />
+                        <p-button *ngIf="editing" pCancelEditableRow class="m-1" icon="pi pi-times" size="small" [rounded]="true" severity="secondary" (onClick)="onRowEditCancel(customer, rowIndex)" />
+                        <p-button *ngIf="!editing" pInitEditableRow class="m-1" icon="pi pi-pencil" size="small" [rounded]="true" severity="info" (onClick)="onRowEditInit(customer)" />
+                        <p-button *ngIf="!editing" class="m-1" icon="pi pi-trash" size="small" [rounded]="true" severity="danger" (onClick)="confirmDelete(customer.id, $event)" />
+                    </div>
+                    
                 </td>
             </tr>
         </ng-template>

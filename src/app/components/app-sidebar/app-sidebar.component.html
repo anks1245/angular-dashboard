@@ -1,7 +1,7 @@
 
 <p-toast />
-<p-confirmdialog />
-<aside class="bg-primary shadow-2 overflow-hidden h-screen" [ngClass]="visible?'show':'collapse'">
+<p-confirmdialog  [style]="{ width: '90vw', maxWidth: '400px' }"/>
+<aside class="bg-primary shadow-2 overflow-hidden h-screen h-full" [ngClass]="visible?'show':'collapse'">
     <h2 class="text-lg font-bold mb-4"><i class="pi pi-truck mr-2"></i>Food Wagon</h2>
     <ul class="list-none p-0 m-0 text-sm" [ngClass]="visible ? 'show-content' : 'hide-content'">
       <li class="p-2 m-1 cursor-pointer hover:bg-primary-reverse" [ngClass]="{ 'bg-primary-reverse': isActive('/home') }" (click)="navigate('/home')">

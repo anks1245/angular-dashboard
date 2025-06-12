@@ -42,8 +42,6 @@ export class OrdersComponent implements OnInit{
     this.loading = true
     this.extrasService.getProducts(limit, skip, search).subscribe({
       next:(data)=>{
-        // console.log(data);
-        
         this.loading = false
         this.extras = data
         this.totalRecords = data.total
