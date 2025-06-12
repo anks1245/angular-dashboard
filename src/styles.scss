@@ -10,6 +10,7 @@ body{
     box-sizing: border-box;
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
+    overflow: hidden;
 }
 
 
@@ -20,3 +21,4 @@ body{
 .p-password{
     width: 100%;
 }
+

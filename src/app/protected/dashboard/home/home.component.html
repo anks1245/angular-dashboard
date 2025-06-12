@@ -1,23 +1,23 @@
 <div class="grid">
-    <div class="col-3">
+    <div class="lg:col-3 md:col-6 col-12">
         <div class="card bg-white m-2 py-1 px-4">
             <h5>Total Orders</h5>
             <h1 class="text-primary">392</h1>
         </div>
     </div>
-    <div class="col-3">
+    <div class="lg:col-3 md:col-6 col-12">
         <div class="card bg-white m-2 py-1 px-4">
             <h5>Total Delivered</h5>
             <h1 class="text-primary">318</h1>
         </div>
     </div>
-    <div class="col-3">
+    <div class="lg:col-3 md:col-6 col-12">
         <div class="card bg-white m-2 py-1 px-4">
             <h5>Total Cancelled</h5>
             <h1 class="text-primary">{{392-318}}</h1>
         </div>
     </div>
-    <div class="col-3">
+    <div class="lg:col-3 md:col-6 col-12">
         <div class="card bg-white m-2 py-1 px-4">
             <h5>Total Revenue</h5>
             <h1 class="text-primary">$ 1242</h1>
@@ -25,13 +25,13 @@
     </div>
 </div>
 <div class="grid">
-    <div class="col-8">
-        <div class="card m-2 px-4 py-1 bg-white" style="height: 400px;">
+    <div class="lg:col-8 col-12">
+        <div class="card m-2 px-4 py-1 bg-white">
             <h4>Order this week</h4>
             <p-chart class="w-full" type="bar" [data]="basicData" [options]="basicOptions" />
         </div>
     </div>
-    <div class="col-4">
+    <div class="lg:col-4 col-12">
         <div class="card flex flex-column m-2 px-4 py-1 bg-white" style="height: 400px; overflow: hidden;">
             <h4>Recent Orders</h4>
             <div class="flex-grow-1" style="overflow-y: scroll;">

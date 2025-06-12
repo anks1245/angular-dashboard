@@ -1,7 +1,7 @@
 <div class="card p-2 bg-white shadow-1">
     <div class="flex justify-content-between align-items-center px-2">
-        <h3>Extras</h3>
-        <div>
+        <h3 class="hidden md:block">Extras</h3>
+        <div class="search-container">
             <p-inputgroup>
                 <input pInputText placeholder="Search Here..." [(ngModel)]="search"/>
                 <p-inputgroup-addon>
@@ -46,6 +46,7 @@
             [first]="first" 
             [rows]="rows" 
             [totalRecords]="120" 
+            [pageLinkSize]="3"
             [rowsPerPageOptions]="[10, 20, 30]"
             showCurrentPageReport="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" />

@@ -42,7 +42,7 @@ export class OrdersComponent implements OnInit{
     this.loading = true
     this.extrasService.getProducts(limit, skip, search).subscribe({
       next:(data)=>{
-        console.log(data);
+        // console.log(data);
         
         this.loading = false
         this.extras = data
@@ -61,7 +61,7 @@ export class OrdersComponent implements OnInit{
    onPageChange(event: PaginatorState) {
         this.first = event.first ?? 0;
         this.rows = event.rows ?? 10;
-        console.log("hit", this.first, this.rows);
+        // console.log("hit", this.first, this.rows);
         this.getData(this.rows, this.first, this.search)
     }
 

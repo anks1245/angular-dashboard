@@ -16,10 +16,14 @@ import { ToastModule } from 'primeng/toast';
 export class AppSidebarComponent {
   router = inject(Router)
   sidebarService = inject(SidebarService)
-  visible = true
+  visible = !(window.innerWidth <= 768);
   currentRoute = '';
   constructor(private confirmationService: ConfirmationService, private messageService: MessageService){
+    console.log(this.visible);
+    this.sidebarService.setSidebar(this.visible)
     this.sidebarService.sidebarVisible$.subscribe(v=>{
+      console.log(v);
+      
       this.visible = v;
     })
     this.router.events.subscribe(() => {
