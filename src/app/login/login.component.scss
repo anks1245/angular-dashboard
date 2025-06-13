@@ -1,0 +1,19 @@
+.card{
+    background-color: white;
+    padding: 20px;
+    .input-group{
+        margin: 15px 0;
+        p-floatlabel input{
+            width: 100%;
+        }
+    }
+    .input-message{
+        min-height: 20px;
+        color: var(--p-red-700);
+    }
+    p-button{
+        margin:30px 0;
+    }
+}
+
+
