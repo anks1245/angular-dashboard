@@ -4,6 +4,12 @@ export interface Country {
     code?: string;
 }
 
+
+export interface CountryOption {
+  label: string;
+  value: Country;
+}
+
 export interface Representative {
     name?: string;
     image?: string;

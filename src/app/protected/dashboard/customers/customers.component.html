@@ -1,6 +1,60 @@
 <p-toast />
 <p-confirmdialog  [style]="{ width: '90vw', maxWidth: '400px' }"/>
+<p-drawer header="Add Record" [(visible)]="isDrawerOpen" position="right">
+    <form class="py-2" [formGroup]="formGroup" (ngSubmit)="addRecord()">
+        <div class="input-group">
+            <p-floatlabel variant="on">
+                <input id="name" pInputText formControlName="name" />
+                <label for="name">Full Name</label>
+            </p-floatlabel>
+            <div class="input-message">
+                <small class="p-error" *ngIf="formGroup.get('name')?.touched && formGroup.get('name')?.invalid">
+                    {{ getErrorMessage('name') }}
+                </small>
+            </div>
+        </div>
+        <div class="input-group">
+            <p-floatlabel variant="on">
+                <input id="company" pInputText formControlName="company" />
+                <label for="company">Company</label>
+            </p-floatlabel>
+            <div class="input-message">
+                <small class="p-error" *ngIf="formGroup.get('company')?.touched && formGroup.get('company')?.invalid">
+                    {{ getErrorMessage('company') }}
+                </small>
+            </div>
+        </div>
+        <div class="input-group">
+            <p-floatlabel class="w-full md:w-56" variant="on">
+                <p-select formControlName="country" inputId="country" [options]="countries" styleClass="w-full" />
+                <label for="country">Country</label>
+            </p-floatlabel>
+            <div class="input-message">
+                <small class="p-error" *ngIf="formGroup.get('country')?.touched && formGroup.get('country')?.invalid">
+                    {{ getErrorMessage('country') }}
+                </small>
+            </div>
+        </div>
+        <div class="input-group">
+            <p-floatlabel class="w-full md:w-56" variant="on">
+                <p-select formControlName="agent" inputId="agent" [options]="representatives" optionLabel="name" styleClass="w-full" />
+                <label for="agent">Agent</label>
+            </p-floatlabel>
+            <div class="input-message">
+                <small class="p-error" *ngIf="formGroup.get('agent')?.touched && formGroup.get('agent')?.invalid">
+                    {{ getErrorMessage('agent') }}
+                </small>
+            </div>
+        </div>
+        <p-button label="Add" styleClass="full-width-button" type="submit"></p-button>
+    </form>
+</p-drawer>
 <div class="card p-2 bg-white shadow-1">
+    <p>Pagination, filteration, sorting and CRUD manipulations is done from the frontend</p>
+    <div class="flex justify-content-between align-items-center px-2">
+        <h3>Customers</h3>
+        <p-button label="Add Customer" icon="pi pi-plus" size="small" (onClick)="handleAddRecord()" />
+    </div>
     <p-table
         #dt2
         [value]="customers"
@@ -73,7 +127,7 @@
                             <p-select
                                 [options]="countries"
                                 appendTo="body"
-                                [(ngModel)]="customer.country.name"
+                                [(ngModel)]="customer.country"
                                 [style]="{'width':'100%'}" />
                         </ng-template>
                         <ng-template #output>
@@ -93,42 +147,6 @@
                 </td>
                 <td>
                     <div class="flex items-center justify-center gap-2">
-                        <!-- <button
-                            *ngIf="!editing"
-                            pButton
-                            pRipple
-                            type="button"
-                            pInitEditableRow
-                            icon="pi pi-pencil"
-                            (click)="onRowEditInit(customer)"
-                            text
-                            rounded
-                            severity="secondary"
-                        ></button>
-                        <button
-                            *ngIf="editing"
-                            pButton
-                            pRipple
-                            type="button"
-                            pSaveEditableRow
-                            icon="pi pi-check"
-                            (click)="onRowEditSave(customer)"
-                            text
-                            rounded
-                            severity="secondary"
-                        ></button>
-                        <button
-                            *ngIf="editing"
-                            pButton
-                            pRipple
-                            type="button"
-                            pCancelEditableRow
-                            icon="pi pi-times"
-                            (click)="onRowEditCancel(customer, rowIndex)"
-                            text
-                            rounded
-                            severity="secondary"
-                        ></button> -->
                         <p-button *ngIf="editing" pSaveEditableRow class="m-1" icon="pi pi-check" size="small" [rounded]="true" severity="success" (onClick)="onRowEditSave(customer)" />
                         <p-button *ngIf="editing" pCancelEditableRow class="m-1" icon="pi pi-times" size="small" [rounded]="true" severity="secondary" (onClick)="onRowEditCancel(customer, rowIndex)" />
                         <p-button *ngIf="!editing" pInitEditableRow class="m-1" icon="pi pi-pencil" size="small" [rounded]="true" severity="info" (onClick)="onRowEditInit(customer)" />

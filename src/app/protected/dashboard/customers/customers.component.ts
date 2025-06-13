@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Country, Customer,Representative } from '../../../models/customers';
+import { Country, CountryOption, Customer,Representative } from '../../../models/customers';
 import { Table } from 'primeng/table';
 import { CustomersService } from '../../../services/customers.service';
 import { TagModule } from 'primeng/tag';
@@ -11,21 +11,27 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { SelectModule } from 'primeng/select';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmationService, MessageService, SortEvent } from 'primeng/api';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { DrawerModule } from 'primeng/drawer';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { getFieldErrorMessage } from '../../../utils/FieldErrorHandler';
 
 @Component({
   selector: 'app-customers',
-  imports: [FormsModule, TableModule, TagModule, IconFieldModule, InputTextModule, InputIconModule, MultiSelectModule, SelectModule, HttpClientModule, CommonModule, ButtonModule, ConfirmDialog, ToastModule],
+  imports: [FormsModule, ReactiveFormsModule, TableModule, TagModule, IconFieldModule, InputTextModule, InputIconModule, MultiSelectModule, SelectModule, HttpClientModule, CommonModule, ButtonModule, ConfirmDialog, ToastModule, DrawerModule, FloatLabelModule],
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.scss',
   providers: [ConfirmationService, MessageService]
 })
+
 export class CustomersComponent {
     @ViewChild('dt2') dt2!: Table;
+
+    formGroup!: FormGroup;
 
     customers!: Customer[];
   
@@ -37,27 +43,37 @@ export class CustomersComponent {
 
     clonedCustomer: { [s: number]: Customer } = {};
 
-    countries!: string[]; 
+    countries!: CountryOption[]; 
 
     isSorted: boolean | null = null;
 
     initialValue!: Customer[];
+
+    isDrawerOpen = false;
 
     constructor(private customerService: CustomersService,private confirmationService: ConfirmationService,private messageService: MessageService, ) {}
 
     ngOnInit() {
         this.customerService.getAllCustomers().subscribe({
             next: (data) => {
-                this.customers = data;
-                this.initialValue = [...data]
+                this.customers = data.reverse();
+                this.initialValue = [...this.customers  ]
                 this.loading = false;
 
                 this.customers.forEach((customer) => (customer.date = new Date(<Date>customer.date)));
 
                 this.countries = data
-                    .map(customer => customer.country?.name)
-                    .filter((name): name is string => !!name) // removes undefined
-                    .filter((name, index, self) => self.indexOf(name) === index); //remove duplicates
+                    .map(customer => customer.country)
+                    .filter((country): country is Country => !!country)
+                    .filter((value, index, self) =>
+                        index === self.findIndex(c => c.code === value.code)
+                    )
+                    .map(country => ({
+                        label: country.name ?? '',  // fallback to empty string if name is undefined
+                        value: country
+                    }));
+
+                
             },
             error: (err) => {
                 console.log(err);
@@ -76,6 +92,13 @@ export class CustomersComponent {
             { name: 'Stephen Shaw', image: 'stephenshaw.png' },
             { name: 'Xuxue Feng', image: 'xuxuefeng.png' }
         ];
+
+        this.formGroup = new FormGroup({
+            name: new FormControl('',[Validators.required]),
+            country: new FormControl<Country | null>(null,[Validators.required]),
+            company: new FormControl('',[Validators.required]),
+            agent: new FormControl('',[Validators.required])
+        })  
 
     }
 
@@ -151,5 +174,47 @@ export class CustomersComponent {
 
             return event.order! * result;
         });
+    }
+
+    handleAddRecord(){
+        this.isDrawerOpen = true;
+        this.formGroup.reset()
+    }
+
+    handleDrawerClose(){
+
+    }
+
+    addRecord(){
+        if(this.formGroup.valid){
+            const formValues = this.formGroup.value;
+            console.log('Form Submitted:', formValues);
+            let nextId = (this.customers[0].id ?? 0) + 1;
+            
+            let newCustomer: Customer = {
+                "id": nextId,
+                "name": formValues.name,
+                "country": formValues.country,
+                "company": formValues.company,
+                "date": new Date().toISOString().split("T")[0],
+                "status": "unqualified",
+                "verified": false,
+                "activity": 17,
+                "representative": formValues.agent,
+                "balance": 70663
+            }
+
+            this.customers = [newCustomer, ...this.customers]
+            this.initialValue = [...this.customers  ]
+            this.isDrawerOpen = false;
+            this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Record Added' });
+        }else{
+            console.log('Form is invalid');
+            this.formGroup.markAllAsTouched();
+        }
+    }
+
+    getErrorMessage(controlName: string): string | null {
+        return getFieldErrorMessage(this.formGroup,controlName)
     }
 }
