@@ -1,0 +1,97 @@
+<!-- <p-toast /> -->
+<!-- <p-confirmdialog  [style]="{ width: '90vw', maxWidth: '400px' }"/> -->
+<!-- <p-drawer header="Add Record" [(visible)]="isDrawerOpen" position="right">
+    <form class="py-2" [formGroup]="formGroup" (ngSubmit)="addRecord()">
+        <div class=""><h5>Personal Informtion</h5></div>
+        <div class="input-group">
+            <p-floatlabel variant="on">
+                <input id="name" pInputText formControlName="name" />
+                <label for="name">Full Name</label>
+            </p-floatlabel>
+            <div class="input-message">
+                <small class="p-error" *ngIf="formGroup.get('name')?.touched && formGroup.get('name')?.invalid">
+                    {{ getErrorMessage('name') }}
+                </small>
+            </div>
+        </div>
+        <div class="flex gap-2">
+            <div class="input-group max-w-6rem">
+                <p-floatlabel variant="on">
+                    <input id="age" type="number" pInputText formControlName="age" />
+                    <label for="age">Age</label>
+                </p-floatlabel>
+                <div class="input-message">
+                    <small class="p-error" *ngIf="formGroup.get('age')?.touched && formGroup.get('age')?.invalid">
+                        {{ getErrorMessage('age') }}
+                    </small>
+                </div>        
+            </div>
+            <div class="input-group flex-grow-1">
+                <p-floatlabel variant="on">
+                    <input id="phone" type="phone" pInputText formControlName="phone" />
+                    <label for="phone">Phone</label>
+                </p-floatlabel>
+                <div class="input-message">
+                    <small class="p-error" *ngIf="formGroup.get('phone')?.touched && formGroup.get('phone')?.invalid">
+                        {{ getErrorMessage('phone') }}
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="input-group">
+            <p-floatlabel variant="on">
+                <input id="department" pInputText formControlName="department" />
+                <label for="department">Department</label>
+            </p-floatlabel>
+            <div class="input-message">
+                <small class="p-error" *ngIf="formGroup.get('department')?.touched && formGroup.get('department')?.invalid">
+                    {{ getErrorMessage('department') }}
+                </small>
+            </div>
+            
+        </div>
+        <div class="input-group">
+            <p-floatlabel variant="on">
+                <textarea id="address" pInputText formControlName="address" ></textarea>
+                <label for="address">Address</label>
+            </p-floatlabel>
+            <div class="input-message">
+                <small class="p-error" *ngIf="formGroup.get('address')?.touched && formGroup.get('address')?.invalid">
+                    {{ getErrorMessage('address') }}
+                </small>
+            </div>   
+        </div>
+        <div class=""><h5>Credentials</h5></div>
+        <div class="input-group">
+            <p-floatlabel variant="on">
+                <input id="email" pInputText formControlName="email" />
+                <label for="email">Email</label>
+            </p-floatlabel>
+            <div class="input-message">
+                <small class="p-error" *ngIf="formGroup.get('email')?.touched && formGroup.get('email')?.invalid">
+                    {{ getErrorMessage('email') }}
+                </small>
+            </div>     
+        </div>
+        <div class="input-group">
+            <p-floatlabel  variant="on">
+                <p-password  formControlName="password" inputId="password" [toggleMask]="true"/>
+                <label for="password">Password</label>
+            </p-floatlabel>
+            <div class="input-message">
+                <small class="p-error" *ngIf="formGroup.get('password')?.touched && formGroup.get('password')?.invalid">
+                    {{ getErrorMessage('password') }}
+                </small>
+            </div>
+        </div>
+        <p-button label="Add" styleClass="full-width-button" type="submit"></p-button>
+    </form>
+</p-drawer> -->
+
+<div class="card p-2 bg-white shadow-1">
+    <p>Pagination, filteration, sorting and CRUD manipulations is done from the localstorage</p>
+    <div class="flex justify-content-between align-items-center px-2">
+        <h3>Users</h3>
+        <p-button label="Add Users" icon="pi pi-plus" size="small" (onClick)="handleAddRecord()" />
+    </div>
+</div>

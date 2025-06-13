@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { getFieldErrorMessage } from '../utils/FieldErrorHandler';
+import { Users } from '../models/users';
 
 @Component({
   selector: 'app-login',
@@ -39,8 +40,22 @@ export class LoginComponent implements OnInit{
       console.log('Username:', formValues.email);
       console.log('Password:', formValues.password);
 
-      localStorage.setItem("token","abd")
-      this.router.navigate(['/dashboard'],{ replaceUrl: true })
+      // localStorage.setItem("isLoggedIn","true")
+      if(localStorage.getItem("users")){
+        const users = JSON.parse(localStorage.getItem("users")!) as Users[]
+        const isAuth = users.filter(v=>v.email == formValues.email && v.password == formValues.password)
+        console.log(isAuth.length)
+        if(isAuth.length == 1){
+          localStorage.setItem("isLoggedIn", "true")
+          this.router.navigate(['/dashboard'],{ replaceUrl: true })
+        }else{
+          alert("Invalid credentials")
+        }
+      }else{
+        alert("Something went wrong")
+      }
+
+      
 
     }else{
       console.log('Form is invalid');

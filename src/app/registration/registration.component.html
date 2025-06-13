@@ -24,8 +24,7 @@
                         <small class="p-error" *ngIf="formGroup.get('age')?.touched && formGroup.get('age')?.invalid">
                             {{ getErrorMessage('age') }}
                         </small>
-                    </div>
-                    
+                    </div>        
                 </div>
                 <div class="input-group flex-grow-1">
                     <p-floatlabel variant="on">
@@ -37,10 +36,8 @@
                             {{ getErrorMessage('phone') }}
                         </small>
                     </div>
-                    
                 </div>
             </div>
-
             <div class="input-group">
                 <p-floatlabel variant="on">
                     <input id="department" pInputText formControlName="department" />
@@ -53,7 +50,6 @@
                 </div>
                 
             </div>
-            
             <div class="input-group">
                 <p-floatlabel variant="on">
                     <textarea id="address" pInputText formControlName="address" ></textarea>
@@ -63,8 +59,7 @@
                     <small class="p-error" *ngIf="formGroup.get('address')?.touched && formGroup.get('address')?.invalid">
                         {{ getErrorMessage('address') }}
                     </small>
-                </div>
-                
+                </div>   
             </div>
             <div class=""><h5>Credentials</h5></div>
             <div class="input-group">
@@ -76,8 +71,7 @@
                     <small class="p-error" *ngIf="formGroup.get('email')?.touched && formGroup.get('email')?.invalid">
                         {{ getErrorMessage('email') }}
                     </small>
-                </div>
-                
+                </div>     
             </div>
             <div class="input-group">
                 <p-floatlabel  variant="on">
@@ -90,7 +84,6 @@
                     </small>
                 </div>
             </div>
-            
             <p-button label="Register" styleClass="full-width-button" type="submit"></p-button>
             <div class="flex justify-content-center m-2">
                 <span>OR</span>
