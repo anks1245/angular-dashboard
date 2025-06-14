@@ -55,7 +55,7 @@ export class AppSidebarComponent {
             },
             accept: () => {
                 // this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
-                localStorage.clear()
+                localStorage.removeItem("isLoggedIn")
                 this.router.navigate(["/"])
             },
             reject: () => {

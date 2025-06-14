@@ -7,6 +7,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { getFieldErrorMessage } from '../utils/FieldErrorHandler';
+import { Users } from '../models/users';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +20,7 @@ export class LoginComponent implements OnInit{
   
   formGroup!: FormGroup;
   router = inject(Router);
+  userService = inject(UsersService)
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -35,12 +38,14 @@ export class LoginComponent implements OnInit{
       const formValues = this.formGroup.value;
       console.log('Form Submitted:', formValues);
 
-      // Access individual fields if needed
-      console.log('Username:', formValues.email);
-      console.log('Password:', formValues.password);
-
-      localStorage.setItem("token","abd")
-      this.router.navigate(['/dashboard'],{ replaceUrl: true })
+      // localStorage.setItem("isLoggedIn","true")
+      const result = this.userService.getByEmailandPass(formValues.email, formValues.password)
+      console.log(result);
+      
+      if (result)
+        this.router.navigate(['/dashboard'],{ replaceUrl: true })
+      else
+        alert("Invalid Credentials")
 
     }else{
       console.log('Form is invalid');

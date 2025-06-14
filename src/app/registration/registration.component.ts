@@ -7,6 +7,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { getFieldErrorMessage } from '../utils/FieldErrorHandler';
+import { Users } from '../models/users';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-registration',
@@ -17,6 +19,7 @@ import { getFieldErrorMessage } from '../utils/FieldErrorHandler';
 export class RegistrationComponent {
   formGroup!: FormGroup;
   router = inject(Router);
+  userService = inject(UsersService)
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -33,9 +36,14 @@ export class RegistrationComponent {
   createAccount(){
     if(this.formGroup.valid){
       const formValues = this.formGroup.value;
-      console.log('Form Submitted:', formValues);
-      alert("Account created")
-
+      // console.log('Form Submitted:', formValues);
+      
+      if(this.userService.add(formValues)){
+        alert("User account created!")
+        this.router.navigate(["/"])
+      }else{
+        alert("Duplicate data found")
+      } 
     }else{
       console.log('Form is invalid');
       this.formGroup.markAllAsTouched();

@@ -6,6 +6,7 @@ import { OrdersComponent } from './dashboard/orders/orders.component';
 import { CustomersComponent } from './dashboard/customers/customers.component';
 import { MenusComponent } from './dashboard/menus/menus.component';
 import { AnalyticsComponent } from './dashboard/analytics/analytics.component';
+import { UsersComponent } from './dashboard/users/users.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
           {
               path:"analytics",
               component: AnalyticsComponent
+          },
+          {
+              path:"users",
+              component: UsersComponent
           },
           { path: '', redirectTo: 'home', pathMatch: 'full' }
         ]
