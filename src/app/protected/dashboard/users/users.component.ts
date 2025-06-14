@@ -18,7 +18,7 @@ import { getFieldErrorMessage } from '../../../utils/FieldErrorHandler';
 import { PasswordModule } from 'primeng/password';
 import { ConfirmationService, MessageService, SortEvent } from 'primeng/api';
 import { UsersService } from '../../../services/users.service';
-import { Users } from '../../../models/users';
+import { NonEditable, Users } from '../../../models/users';
 
 @Component({
   selector: 'app-users',
@@ -27,6 +27,7 @@ import { Users } from '../../../models/users';
   styleUrl: './users.component.scss',
   providers: [ConfirmationService, MessageService]
 })
+
 export class UsersComponent {
   @ViewChild('dt2') dt2!: Table;
   addFormGroup!: FormGroup
@@ -37,7 +38,7 @@ export class UsersComponent {
   users!: Users[]
   isSorted: boolean | null = null;
   initialValue!: Users[];
-  editableEmail: string | null = null
+  nonEditable!: NonEditable;
 
   constructor(private confirmationService: ConfirmationService,private messageService: MessageService,){
     this.getUsers()
@@ -90,13 +91,13 @@ export class UsersComponent {
 
   handleUpdate(user: Users){
     this.isUpdateDrawerOpen = true
-    this.editableEmail = user.email
+    this.nonEditable = {email: user.email, id: user.id}
     this.updateFormGroup.patchValue(user)
   }
 
   updateRecord(){
     delete this.updateFormGroup.value.email
-    const updatedData = {...this.updateFormGroup.value, ...{"email": this.editableEmail}}
+    const updatedData = {...this.updateFormGroup.value, ...this.nonEditable}
     console.log(updatedData);
     if(this.userService.update(updatedData)){
       this.messageService.add({ severity: 'success', summary: 'Message', detail: 'Record Updated' });

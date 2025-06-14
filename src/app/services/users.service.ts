@@ -58,8 +58,10 @@ export class UsersService {
   update(user:Users){
     if(localStorage.getItem("users")){
         const users = JSON.parse(localStorage.getItem("users")!) as Users[]
-        const index = users.findIndex(u=>user.id == user.id)
+        const index = users.findIndex(u=>u.id === user.id)
         users[index] = {...users[index], ...user}
+        console.log(index, users[index], user);
+        
         localStorage.setItem("users",JSON.stringify(users))
         return true
      }else{

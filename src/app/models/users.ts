@@ -1,5 +1,5 @@
 export interface Users {
-  id: string 
+  id: number 
   name: string
   age: number
   address: string
@@ -7,4 +7,9 @@ export interface Users {
   department: string
   email: string
   password: string
+}
+
+export interface NonEditable {
+  id: number,
+  email: string
 }
