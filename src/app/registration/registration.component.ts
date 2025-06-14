@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { getFieldErrorMessage } from '../utils/FieldErrorHandler';
 import { Users } from '../models/users';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-registration',
@@ -18,6 +19,7 @@ import { Users } from '../models/users';
 export class RegistrationComponent {
   formGroup!: FormGroup;
   router = inject(Router);
+  userService = inject(UsersService)
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -34,31 +36,14 @@ export class RegistrationComponent {
   createAccount(){
     if(this.formGroup.valid){
       const formValues = this.formGroup.value;
-      console.log('Form Submitted:', formValues);
-      if(localStorage.getItem("users")){
-        let users = JSON.parse(localStorage.getItem("users")!) as Users[]
-        let duplicateUsers = []
-
-        for (let i = 0; i < users.length; i++) {
-          if(users[i].email == formValues.email){
-            duplicateUsers.push(users[i])
-          }
-        }
-
-        console.log(duplicateUsers);
-        if(duplicateUsers.length > 0){
-          alert("User already exist")
-          return
-        }
-        
-        users = [...users, formValues]
-        localStorage.setItem("users", JSON.stringify(users))
-
+      // console.log('Form Submitted:', formValues);
+      
+      if(this.userService.add(formValues)){
+        alert("User account created!")
+        this.router.navigate(["/"])
       }else{
-        localStorage.setItem("users", JSON.stringify([formValues]))
-      }
-      alert("Account created")
-      this.router.navigate(["/"])
+        alert("Duplicate data found")
+      } 
     }else{
       console.log('Form is invalid');
       this.formGroup.markAllAsTouched();

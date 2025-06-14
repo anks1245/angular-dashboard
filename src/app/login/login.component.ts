@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { getFieldErrorMessage } from '../utils/FieldErrorHandler';
 import { Users } from '../models/users';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit{
   
   formGroup!: FormGroup;
   router = inject(Router);
+  userService = inject(UsersService)
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -36,26 +38,14 @@ export class LoginComponent implements OnInit{
       const formValues = this.formGroup.value;
       console.log('Form Submitted:', formValues);
 
-      // Access individual fields if needed
-      console.log('Username:', formValues.email);
-      console.log('Password:', formValues.password);
-
       // localStorage.setItem("isLoggedIn","true")
-      if(localStorage.getItem("users")){
-        const users = JSON.parse(localStorage.getItem("users")!) as Users[]
-        const isAuth = users.filter(v=>v.email == formValues.email && v.password == formValues.password)
-        console.log(isAuth.length)
-        if(isAuth.length == 1){
-          localStorage.setItem("isLoggedIn", "true")
-          this.router.navigate(['/dashboard'],{ replaceUrl: true })
-        }else{
-          alert("Invalid credentials")
-        }
-      }else{
-        alert("Something went wrong")
-      }
-
+      const result = this.userService.getByEmailandPass(formValues.email, formValues.password)
+      console.log(result);
       
+      if (result)
+        this.router.navigate(['/dashboard'],{ replaceUrl: true })
+      else
+        alert("Invalid Credentials")
 
     }else{
       console.log('Form is invalid');

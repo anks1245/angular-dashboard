@@ -1,0 +1,23 @@
+.input-group{
+    margin: 5px 0;
+    p-floatlabel input{
+        width: 100%;
+    }
+    
+    
+    textarea{
+        width: 100%;
+        resize: none;
+    }
+}
+.input-message{
+    min-height: 20px;
+    color: var(--p-red-700);
+}
+p-button{
+    margin:30px 0;
+}
+
+::ng-deep .p-password input {
+  width: 100% !important;
+}
