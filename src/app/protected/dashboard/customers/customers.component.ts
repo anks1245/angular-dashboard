@@ -13,16 +13,35 @@ import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { ConfirmationService, MessageService, SortEvent } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService, SortEvent } from 'primeng/api';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { DrawerModule } from 'primeng/drawer';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { getFieldErrorMessage } from '../../../utils/FieldErrorHandler';
+import { ContextMenuModule } from 'primeng/contextmenu';
 
 @Component({
   selector: 'app-customers',
-  imports: [FormsModule, ReactiveFormsModule, TableModule, TagModule, IconFieldModule, InputTextModule, InputIconModule, MultiSelectModule, SelectModule, HttpClientModule, CommonModule, ButtonModule, ConfirmDialog, ToastModule, DrawerModule, FloatLabelModule],
+  imports: [
+    FormsModule, 
+    ReactiveFormsModule, 
+    TableModule, 
+    TagModule, 
+    IconFieldModule, 
+    InputTextModule, 
+    InputIconModule, 
+    MultiSelectModule, 
+    SelectModule, 
+    HttpClientModule, 
+    CommonModule, 
+    ButtonModule, 
+    ConfirmDialog, 
+    ToastModule, 
+    DrawerModule, 
+    FloatLabelModule,
+    ContextMenuModule
+],
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.scss',
   providers: [ConfirmationService, MessageService]
@@ -30,26 +49,18 @@ import { getFieldErrorMessage } from '../../../utils/FieldErrorHandler';
 
 export class CustomersComponent {
     @ViewChild('dt2') dt2!: Table;
-
     formGroup!: FormGroup;
-
     customers!: Customer[];
-  
+    selectedCustomer!: Customer;
     representatives!: Representative[];
-  
     loading: boolean = true;
-  
     activityValues: number[] = [0, 100];
-
     clonedCustomer: { [s: number]: Customer } = {};
-
     countries!: CountryOption[]; 
-
     isSorted: boolean | null = null;
-
     initialValue!: Customer[];
-
     isDrawerOpen = false;
+    items!: MenuItem[];
 
     constructor(private customerService: CustomersService,private confirmationService: ConfirmationService,private messageService: MessageService, ) {}
 

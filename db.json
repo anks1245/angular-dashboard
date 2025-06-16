@@ -1,0 +1,13 @@
+{
+  "users": [
+    {
+      "name": "Ankit Ram Nag",
+      "age": 22,
+      "address": "Saileshree Vihar, Bhubaneswar, Odisha",
+      "phone": "9213123321",
+      "department": "UI Developer",
+      "email": "anks1245@gmail.com",
+      "id": "1b12"
+    }
+  ]
+}

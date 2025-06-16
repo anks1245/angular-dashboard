@@ -63,8 +63,17 @@ export class UsersComponent {
   }
 
   getUsers(){
-    this.users = this.userService.get().reverse()
-    this.initialValue = [...this.users]
+    this.userService.get().subscribe({
+      next:(data)=>{
+        this.users = data.reverse()
+        this.initialValue = [...this.users]
+      },
+      error:(err)=>{
+        console.log("Error GET users", err);
+      }
+    })
+    
+    
   }
 
   handleAddRecord(){
@@ -75,14 +84,25 @@ export class UsersComponent {
     if(this.addFormGroup.valid){
       const formValues = this.addFormGroup.value;
       // console.log('Form Submitted:', formValues);
-      if(this.userService.add(formValues)){
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Customer record added' });
-        this.isAddDrawerOpen = false
-        this.addFormGroup.reset()
-        this.getUsers()
-      }else{
-        alert("Duplicate data found")
-      }
+      // if(this.userService.add(formValues)){
+      //   this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Customer record added' });
+      //   this.isAddDrawerOpen = false
+      //   this.addFormGroup.reset()
+      //   this.getUsers()
+      // }else{
+      //   alert("Duplicate data found")
+      // }
+      this.userService.add(formValues).subscribe({
+        next:(data)=>{
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User record added' });
+          this.isAddDrawerOpen = false
+          this.addFormGroup.reset()
+          this.getUsers()
+        },
+        error:(err)=>{
+          console.log("Error ADD users", err);
+        }
+      })
     }else{
       console.log('Form is invalid');
       this.addFormGroup.markAllAsTouched();
@@ -99,13 +119,24 @@ export class UsersComponent {
     delete this.updateFormGroup.value.email
     const updatedData = {...this.updateFormGroup.value, ...this.nonEditable}
     console.log(updatedData);
-    if(this.userService.update(updatedData)){
-      this.messageService.add({ severity: 'success', summary: 'Message', detail: 'Record Updated' });
-      this.getUsers()
-      this.isUpdateDrawerOpen = false
-    }else{
-      this.messageService.add({ severity: 'info', summary: 'Message', detail: 'No record founds' });
-    }
+    // if(this.userService.update(updatedData)){
+    //   this.messageService.add({ severity: 'success', summary: 'Message', detail: 'Record Updated' });
+    //   this.getUsers()
+    //   this.isUpdateDrawerOpen = false
+    // }else{
+    //   this.messageService.add({ severity: 'info', summary: 'Message', detail: 'No record founds' });
+    // }
+    this.userService.update(updatedData).subscribe({
+        next:()=>{
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User record update' });
+          this.isUpdateDrawerOpen = false
+          this.updateFormGroup.reset()
+          this.getUsers()
+        },
+        error:(err)=>{
+          console.log("Error UPDATE users", err);
+        }
+    })
   }
 
 
@@ -158,13 +189,25 @@ export class UsersComponent {
               severity: 'danger',
           },
           accept: () => {
-              if(this.userService.delete(user)){
-                this.getUsers()
-                this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Record deleted successfully' });
-              }else{
-                this.messageService.add({ severity: 'info', summary: 'Message', detail: 'No record founds' });
-              }
-              
+              // if(this.userService.delete(user)){
+              //   this.getUsers()
+              //   this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Record deleted successfully' });
+              // }else{
+              //   this.messageService.add({ severity: 'info', summary: 'Message', detail: 'No record founds' });
+              // }
+
+              this.userService.delete(user).subscribe({
+                  next:()=>{
+                    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User record deleted' });
+                    this.isUpdateDrawerOpen = false
+                    this.updateFormGroup.reset()
+                    this.getUsers()
+                  },
+                  error:(err)=>{
+                    console.log("Error DELETE users", err);
+                  }
+              })
+                        
           },
           reject: () => {
               // this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });

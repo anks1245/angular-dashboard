@@ -72,6 +72,7 @@
         [customSort]="true"
         [scrollable]="true"
          scrollHeight="320px" 
+         [reorderableColumns]="true"
     >
         <ng-template #header>
             <tr>
@@ -104,9 +105,9 @@
             </tr>
         </ng-template>
         <ng-template #body let-customer let-editing="editing" let-rowIndex="rowIndex">
-            <tr [pEditableRow]="customer">
+            <tr [pEditableRow]="customer" [pReorderableRow]="rowIndex">
                 <td>
-                    {{rowIndex+1}}
+                    <span class="pi pi-bars" pReorderableRowHandle></span> &nbsp;{{rowIndex+1}}
                 </td>
                 <td>
                     {{customer.id}}
