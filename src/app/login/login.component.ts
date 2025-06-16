@@ -39,14 +39,20 @@ export class LoginComponent implements OnInit{
       console.log('Form Submitted:', formValues);
 
       // localStorage.setItem("isLoggedIn","true")
-      const result = this.userService.getByEmailandPass(formValues.email, formValues.password)
-      console.log(result);
-      
-      if (result)
-        this.router.navigate(['/dashboard'],{ replaceUrl: true })
-      else
-        alert("Invalid Credentials")
+      this.userService.getByEmailandPass(formValues.email, formValues.password).subscribe({
+        next:(data)=>{
+          if (data){
+            localStorage.setItem("isLoggedIn","true")
+            this.router.navigate(['/dashboard'],{ replaceUrl: true })
 
+          }else
+            alert("Invalid Credentials")
+        },
+        error:(err)=>{
+          console.log("Login error",err);
+          
+        }
+      })
     }else{
       console.log('Form is invalid');
       this.formGroup.markAllAsTouched();

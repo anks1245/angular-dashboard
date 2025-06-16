@@ -38,12 +38,21 @@ export class RegistrationComponent {
       const formValues = this.formGroup.value;
       // console.log('Form Submitted:', formValues);
       
-      if(this.userService.add(formValues)){
-        alert("User account created!")
+      // if(this.userService.add(formValues)){
+      //   alert("User account created!")
+      //   this.router.navigate(["/"])
+      // }else{
+      //   alert("Duplicate data found")
+      // } 
+      this.userService.add(formValues).subscribe({
+        next:(data)=>{
+            alert("User account created!")
         this.router.navigate(["/"])
-      }else{
-        alert("Duplicate data found")
-      } 
+        },
+        error:(err)=>{
+          console.log("Error ADD users", err);
+        }
+      })
     }else{
       console.log('Form is invalid');
       this.formGroup.markAllAsTouched();
