@@ -1,0 +1,10 @@
+
+.expand{
+    width: calc(100vw - 200px);
+    transition: ease-in-out all 400ms;
+}
+
+.collapse{
+    width: 100vw;
+    transition: ease-in-out all 400ms;
+}

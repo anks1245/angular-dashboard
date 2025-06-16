@@ -1,3 +1,30 @@
+::ng-deep .compact-filter {
+    .p-inputtext {
+        padding: 0.3rem 0.4rem;
+        font-size: 12px;
+        //   width: 100px;
+    }
+    .p-button {
+        display: none;
+    }
+}
+
+::ng-deep .mini {
+    .p-inputtext {
+        padding: 0.3rem 0.4rem;
+        font-size: 12px;
+          width: 80px;
+    }
+    .p-button {
+        display: none;
+    }
+}
+
+::ng-deep .id {
+    
+}
+
+
 .input-group{
     margin: 5px 0;
     p-floatlabel input{

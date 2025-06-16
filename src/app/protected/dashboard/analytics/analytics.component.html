@@ -1,1 +1,7 @@
-<p>analytics works!</p>
+<div>
+    <input type="text" [(ngModel)]="data"/>
+    <button type="submit" (click)="handleSubmit()">Save</button>
+</div>
+<ul *ngFor="let item of datalist">
+    <li>{{item}}</li>
+</ul>

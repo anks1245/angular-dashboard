@@ -2,7 +2,7 @@
   <!-- Sidebar -->
   <app-sidebar></app-sidebar>
   <!-- Main Content -->
-  <main class="flex flex-column flex-grow-1 max-w-screen">
+  <main class="flex flex-column flex-grow-1" [ngClass]="visible?'expand':'collapse'">
     <app-header></app-header>
     <div class="p-4 overflow-x-scroll overflow-y-scroll flex-grow-1">
         <router-outlet></router-outlet>

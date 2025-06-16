@@ -184,20 +184,53 @@
     >
         <ng-template #header>
             <tr>
-                <th >Sl no.</th>
+                <th style="width: 10%;">Sl no.</th>
+                <th>Action</th>
                 <th pSortableColumn="id">ID <p-sortIcon field="id" /></th>
                 <th pSortableColumn="email" >Email <p-sortIcon field="email" /></th>
                 <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
                 <th pSortableColumn="age">Age <p-sortIcon field="age" /></th>
                 <th pSortableColumn="phone">Phone <p-sortIcon field="phone" /></th>
                 <th pSortableColumn="address">Address <p-sortIcon field="address" /></th>
-                <th>Action</th>
+            </tr>
+            <tr>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th >
+                    <p-columnFilter class="mini" matchMode="contains" [showApplyButton]="false" [showClearButton]="false" type="text" field="id" placeholder="Search by ID" ariaLabel="Filter ID"></p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter class="compact-filter" matchMode="contains" [showApplyButton]="false" [showClearButton]="false"  type="text" field="email" placeholder="Search by email" ariaLabel="Filter Email"></p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter class="compact-filter" matchMode="contains" [showApplyButton]="false" [showClearButton]="false" type="text" field="name" placeholder="Search by name" ariaLabel="Filter Name"></p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter class="mini" matchMode="contains" [showApplyButton]="false" [showClearButton]="false" type="text" field="age" placeholder="Search by age" ariaLabel="Filter Age"></p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter class="compact-filter" matchMode="contains" [showApplyButton]="false" [showClearButton]="false" type="text" field="phone" placeholder="Search by phone" ariaLabel="Filter Phone"></p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter class="compact-filter" matchMode="contains" [showApplyButton]="false" [showClearButton]="false" type="text" field="address" placeholder="Search by address" ariaLabel="Filter Address"></p-columnFilter>
+                </th>
             </tr>
         </ng-template>
         <ng-template #body let-user let-rowIndex="rowIndex">
             <tr>
                 <td>
                     {{rowIndex+1}}
+                </td>
+                <td>
+                    <div class="flex items-center justify-center gap-2">
+                        <p-button class="m-1" icon="pi pi-pencil" size="small" [rounded]="true" severity="info" (onClick)="handleUpdate(user)" />
+                        <p-button class="m-1" icon="pi pi-trash" size="small" [rounded]="true" severity="danger" (onClick)="confirmDelete(user, $event)" />
+                    </div>
+                    
                 </td>
                 <td>
                     {{ user.id }}
@@ -217,13 +250,7 @@
                 <td>
                     {{ user.address }}
                 </td>
-                <td>
-                    <div class="flex items-center justify-center gap-2">
-                        <p-button class="m-1" icon="pi pi-pencil" size="small" [rounded]="true" severity="info" (onClick)="handleUpdate(user)" />
-                        <p-button class="m-1" icon="pi pi-trash" size="small" [rounded]="true" severity="danger" (onClick)="confirmDelete(user, $event)" />
-                    </div>
-                    
-                </td>
+                
             </tr>
         </ng-template>
         <ng-template #emptymessage>
