@@ -212,17 +212,17 @@ export class AnalyticsComponent {
       console.log(cloned);
       if(cloned){
         this.getFormGroup(ri).setValue({
-        id: cloned.id,
-        code: cloned.code,
-        name: cloned.name,
-        description: cloned.description,
-        price: cloned.price,
-        quantity: cloned.quantity,
-        inventoryStatus: cloned.inventoryStatus,
-        category: cloned.category,
-        image: cloned.image,
-        rating: cloned.rating,
-      })
+          id: cloned.id,
+          code: cloned.code,
+          name: cloned.name,
+          description: cloned.description,
+          price: cloned.price,
+          quantity: cloned.quantity,
+          inventoryStatus: cloned.inventoryStatus,
+          category: cloned.category,
+          image: cloned.image,
+          rating: cloned.rating,
+        })
       }
       
     }
