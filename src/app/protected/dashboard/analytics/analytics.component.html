@@ -121,7 +121,6 @@
                                         <input
                                             pInputText
                                             type="text"
-                                            style="width: 100px;"
                                             formControlName="description"/>
                                         <div class="text-red-700 text-xs mt-1" *ngIf="getFormGroup(ri).get('description')?.touched && getFormGroup(ri).get('description')?.invalid">
                                             <span>{{getErrorMessage(getFormGroup(ri),"description")}}</span>
@@ -135,7 +134,7 @@
                                     <p-button *ngIf="!hasEntriesWithKey(editingRowKeys, row.value.id)" [disabled]="isAdding" icon="pi pi-pencil" [rounded]="true" [text]="true" severity="info" (onClick)="handleUpdateProduct(row.value)"/>
                                     <p-button *ngIf="isAdding && editingRowKeys[row.value.id] && hasEntriesWithKey(editingRowKeys, row.value.id)" icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" (onClick)="handleRemoveNewlyAddedForms(ri, row.value)"/>
                                     <p-button *ngIf="!isAdding && editingRowKeys[row.value.id] && hasEntriesWithKey(editingRowKeys, row.value.id)" icon="pi pi-check" [rounded]="true" [text]="true" type="submit" severity="secondary" />
-                                    <p-button *ngIf="!isAdding && editingRowKeys[row.value.id] && hasEntriesWithKey(editingRowKeys, row.value.id)" icon="pi pi-times" [rounded]="true" [text]="true" severity="secondary" (onClick)="handleRemoveEditingForms(row.value)" />
+                                    <p-button *ngIf="!isAdding && editingRowKeys[row.value.id] && hasEntriesWithKey(editingRowKeys, row.value.id)" icon="pi pi-times" [rounded]="true" [text]="true" severity="secondary" (onClick)="handleRemoveEditingForms(ri, row.value)" />
                                 </td>
                             </tr>
                         </ng-template>

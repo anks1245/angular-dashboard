@@ -33,9 +33,9 @@ import { SelectChangeEvent, SelectModule } from 'primeng/select';
 })
 export class AnalyticsComponent {
     products!: Product[];
-    addedProducts!: Product[];
     editingRowKeys: { [key: string]: boolean } = {};
     form!: FormGroup;
+    formArray!: FormArray;
     inventoryStatus = ['INSTOCK', 'OUTOFSTOCK', 'LOWSTOCK']
     productCategories = [ 'Accessories', 'Fitness', 'Clothing', 'Electronics' ]
     isAdding = false
@@ -82,8 +82,8 @@ export class AnalyticsComponent {
             rating: p.rating
           }))
 
-          const formArray = this.formBuilder.array(productFormGroups);
-          this.form.setControl('products', formArray);
+          this.formArray = this.formBuilder.array(productFormGroups);
+          this.form.setControl('products', this.formArray);
           
         },
         error:(err)=>{
@@ -203,11 +203,28 @@ export class AnalyticsComponent {
       }
     }
 
-    handleRemoveEditingForms(pd: Product){
+    handleRemoveEditingForms(ri: number,pd: Product){
       delete this.editingRowKeys[pd.id!]
+      const cloned = this.products.find(p=>p.id==pd.id)
       if(Object.keys(this.editingRowKeys).length == 0){
         this.isEditing = false
       }
+      console.log(cloned);
+      if(cloned){
+        this.getFormGroup(ri).setValue({
+        id: cloned.id,
+        code: cloned.code,
+        name: cloned.name,
+        description: cloned.description,
+        price: cloned.price,
+        quantity: cloned.quantity,
+        inventoryStatus: cloned.inventoryStatus,
+        category: cloned.category,
+        image: cloned.image,
+        rating: cloned.rating,
+      })
+      }
+      
     }
 
     getFormGroup(index: number): FormGroup {
