@@ -102,7 +102,7 @@
       "description": "",
       "price": 100,
       "quantity": 10,
-      "inventoryStatus": "LOWSTOCK",
+      "inventoryStatus": "INSTOCK",
       "category": "Electronics",
       "image": "",
       "rating": 0,
