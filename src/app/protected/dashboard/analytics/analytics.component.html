@@ -1,7 +1,132 @@
-<div>
-    <input type="text" [(ngModel)]="data"/>
-    <button type="submit" (click)="handleSubmit()">Save</button>
+<div class="card p-2 bg-white shadow-1">
+    <div class="card">
+        <div class="flex justify-content-between align-items-center">
+            <h4>Analytics</h4>
+            <div class="flex gap-2">
+                <p-button size="small" label="Add" icon="pi pi-plus" iconPos="right" (onClick)="addNewProductRow()" [disabled]="isEditing"/>
+                <p-button size="small" label="Save" icon="pi pi-check" iconPos="right" (onClick)="addProduct()" [disabled]="isEditing || !hasEntries(editingRowKeys)"/>
+            </div>
+        </div>
+        <form [formGroup]="form" (submit)="updateProduct()">
+            <div formArrayName="products">
+                <p-table
+                    [value]="productsFormArray.controls"
+                    showGridlines
+                    dataKey="id"
+                    size="small"
+                    [tableStyle]="{ 'min-width': '50rem' }">
+                        <ng-template #header>
+                            <tr>
+                                <th>SL No</th>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template #body let-row let-ri="rowIndex">
+                            <tr [formGroupName]="ri">
+                                <td>{{ ri+1 }}</td>
+                                <td >
+                                    <ng-container *ngIf="editingRowKeys[row.value.id]; else codeOutput">
+                                        <input
+                                            pInputText
+                                            type="text"
+                                            formControlName="code" />
+                                        <div class="text-red-700 text-xs mt-1" *ngIf="getFormGroup(ri).get('code')?.touched && getFormGroup(ri).get('code')?.invalid">
+                                            <span>{{getErrorMessage(getFormGroup(ri),"code")}}</span>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #codeOutput>
+                                            {{row.value.code}}
+                                    </ng-template>
+                                </td>
+                                <td >
+                                    <ng-container *ngIf="editingRowKeys[row.value.id]; else nameOutput">
+                                        <input
+                                            pInputText
+                                            type="text"
+                                            formControlName="name" />
+                                        <div class="text-red-700 text-xs mt-1" *ngIf="getFormGroup(ri).get('name')?.touched && getFormGroup(ri).get('name')?.invalid">
+                                            <span>{{getErrorMessage(getFormGroup(ri),"name")}}</span>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #nameOutput>
+                                            {{row.value.name}}
+                                    </ng-template>
+                                </td>
+                                <td >
+                                    <ng-container *ngIf="editingRowKeys[row.value.id]; else categoryOutput">
+                                        <p-select [options]="productCategories" formControlName="category" placeholder="Select Category" />
+                                        <div class="text-red-700 text-xs mt-1" *ngIf="getFormGroup(ri).get('category')?.touched && getFormGroup(ri).get('category')?.invalid">
+                                            <span>{{getErrorMessage(getFormGroup(ri),"category")}}</span>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #categoryOutput>
+                                            {{row.value.category}}
+                                    </ng-template>
+                                </td>
+                                <td >
+                                    <ng-container *ngIf="editingRowKeys[row.value.id]; else priceOutput">
+                                        <input
+                                            pInputText
+                                            type="number"
+                                            min="0.0"
+                                            style="width: 100px;"
+                                            formControlName="price" />
+                                        <div class="text-red-700 text-xs mt-1" *ngIf="getFormGroup(ri).get('price')?.touched && getFormGroup(ri).get('price')?.invalid">
+                                            <span>{{getErrorMessage(getFormGroup(ri),"price")}}</span>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #priceOutput>
+                                            {{row.value.price}}
+                                    </ng-template>
+                                </td>
+                                <td >
+                                    <ng-container *ngIf="editingRowKeys[row.value.id]; else quantityOutput">
+                                        <input
+                                            pInputText
+                                            type="number"
+                                            min="0"
+                                            style="width: 100px;"
+                                            formControlName="quantity" />
+                                        <div class="text-red-700 text-xs mt-1" *ngIf="getFormGroup(ri).get('quantity')?.touched && getFormGroup(ri).get('quantity')?.invalid">
+                                            <span>{{getErrorMessage(getFormGroup(ri),"quantity")}}</span>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #quantityOutput>
+                                            {{row.value.quantity}}
+                                    </ng-template>
+                                </td>
+                                <td >
+                                    <ng-container *ngIf="editingRowKeys[row.value.id]; else statusOutput">
+                                        <p-select [options]="inventoryStatus" formControlName="inventoryStatus" placeholder="Select Status" />
+                                        <div class="text-red-700 text-xs mt-1" *ngIf="getFormGroup(ri).get('inventoryStatus')?.touched && getFormGroup(ri).get('inventoryStatus')?.invalid">
+                                            <span>{{getErrorMessage(getFormGroup(ri),"inventoryStatus")}}</span>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #statusOutput>
+                                            <p-chip *ngIf="row.value.inventoryStatus == 'LOWSTOCK'" [label]="row.value.inventoryStatus" styleClass="chip-text warning"/>
+                                            <p-chip *ngIf="row.value.inventoryStatus == 'OUTOFSTOCK'" [label]="row.value.inventoryStatus" styleClass="chip-text danger"/>
+                                            <p-chip *ngIf="row.value.inventoryStatus == 'INSTOCK'" [label]="row.value.inventoryStatus" styleClass="chip-text success"/>
+                                            
+                                    </ng-template>
+                                </td>
+                                <td>
+                                    <p-button *ngIf="!hasEntriesWithKey(editingRowKeys, row.value.id)" [disabled]="isAdding" icon="pi pi-pencil" [rounded]="true" [text]="true" severity="info" (onClick)="handleUpdateProduct(row.value)"/>
+                                    <p-button *ngIf="isAdding && editingRowKeys[row.value.id] && hasEntriesWithKey(editingRowKeys, row.value.id)" icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" (onClick)="handleRemoveNewlyAddedForms(ri, row.value)"/>
+                                    <p-button *ngIf="!isAdding && editingRowKeys[row.value.id] && hasEntriesWithKey(editingRowKeys, row.value.id)" icon="pi pi-check" [rounded]="true" [text]="true" type="submit" severity="secondary" />
+                                    <p-button *ngIf="!isAdding && editingRowKeys[row.value.id] && hasEntriesWithKey(editingRowKeys, row.value.id)" icon="pi pi-times" [rounded]="true" [text]="true" severity="secondary" (onClick)="handleRemoveEditingForms(row.value)" />
+                                </td>
+                            </tr>
+                        </ng-template>
+                </p-table>
+            </div>
+            
+        </form>
+        
+    </div>
 </div>
-<ul *ngFor="let item of datalist">
-    <li>{{item}}</li>
-</ul>

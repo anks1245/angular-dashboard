@@ -9,5 +9,79 @@
       "email": "anks1245@gmail.com",
       "id": "1b12"
     }
+  ],
+  "products": [
+    {
+      "code": "f230fh0g3",
+      "name": "Casio Watch",
+      "description": "Product Description",
+      "price": 65,
+      "quantity": 24,
+      "inventoryStatus": "INSTOCK",
+      "category": "Accessories",
+      "image": "bamboo-watch.jpg",
+      "rating": 5,
+      "id": "1000"
+    },
+    {
+      "id": "1001",
+      "code": "nvklal433",
+      "name": "Black Watch",
+      "description": "Product Description",
+      "image": "black-watch.jpg",
+      "price": 72,
+      "category": "Accessories",
+      "quantity": 61,
+      "inventoryStatus": "OUTOFSTOCK",
+      "rating": 4
+    },
+    {
+      "id": "1002",
+      "code": "zz21cz3c1",
+      "name": "Blue Band",
+      "description": "Product Description",
+      "image": "blue-band.jpg",
+      "price": 79,
+      "category": "Fitness",
+      "quantity": 2,
+      "inventoryStatus": "LOWSTOCK",
+      "rating": 3
+    },
+    {
+      "code": "zsd313d31",
+      "name": "Neckband",
+      "description": "",
+      "price": 29,
+      "quantity": 100,
+      "inventoryStatus": "INSTOCK",
+      "category": "Accessories",
+      "image": "",
+      "rating": 0,
+      "id": "578e"
+    },
+    {
+      "id": "d855",
+      "code": "bhdj45e3",
+      "name": "Samsung s25 ultra",
+      "description": "",
+      "price": 25,
+      "quantity": 5,
+      "inventoryStatus": "LOWSTOCK",
+      "category": "Electronics",
+      "image": "",
+      "rating": 0
+    },
+    {
+      "id": "1e73",
+      "code": "bcg7cbdu",
+      "name": "Smart TV",
+      "description": "",
+      "price": 299,
+      "quantity": 10,
+      "inventoryStatus": "INSTOCK",
+      "category": "Electronics",
+      "image": "",
+      "rating": 0
+    }
   ]
 }

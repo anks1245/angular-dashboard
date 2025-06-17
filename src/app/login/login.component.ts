@@ -9,24 +9,41 @@ import { Router, RouterModule } from '@angular/router';
 import { getFieldErrorMessage } from '../utils/FieldErrorHandler';
 import { Users } from '../models/users';
 import { UsersService } from '../services/users.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, ReactiveFormsModule, FloatLabelModule, ButtonModule, PasswordModule, InputTextModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, FloatLabelModule, ButtonModule, PasswordModule, InputTextModule, RouterModule, ToastModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  providers: [MessageService]
 })
 export class LoginComponent implements OnInit{
   
   formGroup!: FormGroup;
   router = inject(Router);
   userService = inject(UsersService)
+  messageService = inject(MessageService)
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
       email: new FormControl('',[Validators.required, Validators.email]),
       password: new FormControl('',[Validators.required, Validators.minLength(6)])
     })  
+
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras?.state as { message?: string };
+
+    if (state?.message) {
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: state.message
+        });
+      }, 0);
+    }
   }
   // username = new FormControl()
   // password = new FormControl()

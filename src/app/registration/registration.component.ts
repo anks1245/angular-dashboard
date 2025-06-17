@@ -46,8 +46,8 @@ export class RegistrationComponent {
       // } 
       this.userService.add(formValues).subscribe({
         next:(data)=>{
-            alert("User account created!")
-        this.router.navigate(["/"])
+            // alert("User account created!")
+            this.router.navigate(["/"])
         },
         error:(err)=>{
           console.log("Error ADD users", err);
