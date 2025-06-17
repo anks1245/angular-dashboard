@@ -1,20 +1,21 @@
 {
   "users": [
     {
+      "id": "0627",
       "name": "Ankit Ram Nag",
-      "age": 22,
+      "age": 23,
       "address": "Saileshree Vihar, Bhubaneswar, Odisha",
-      "phone": "9213123321",
-      "department": "UI Developer",
+      "phone": "8921732332",
+      "department": "UI Department",
       "email": "anks1245@gmail.com",
-      "id": "1b12"
+      "password": "Ankit@123"
     }
   ],
   "products": [
     {
       "code": "f230fh0g3",
       "name": "Casio Watch",
-      "description": "Some Product Description",
+      "description": "",
       "price": 65,
       "quantity": 24,
       "inventoryStatus": "INSTOCK",
@@ -39,7 +40,7 @@
       "id": "1002",
       "code": "zz21cz3c1",
       "name": "Blue Band",
-      "description": "Some Product Description",
+      "description": "",
       "image": "blue-band.jpg",
       "price": 79,
       "category": "Fitness",
@@ -101,7 +102,7 @@
       "description": "",
       "price": 100,
       "quantity": 10,
-      "inventoryStatus": "INSTOCK",
+      "inventoryStatus": "LOWSTOCK",
       "category": "Electronics",
       "image": "",
       "rating": 0,
