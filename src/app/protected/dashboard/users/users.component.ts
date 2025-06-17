@@ -111,7 +111,7 @@ export class UsersComponent {
 
   handleUpdate(user: Users){
     this.isUpdateDrawerOpen = true
-    this.nonEditable = {email: user.email, id: user.id}
+    this.nonEditable = {email: user.email, id: user.id, password: user.password}
     this.updateFormGroup.patchValue(user)
   }
 

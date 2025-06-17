@@ -11,5 +11,6 @@ export interface Users {
 
 export interface NonEditable {
   id: number,
-  email: string
+  email: string,
+  password: string
 }
