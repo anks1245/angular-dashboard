@@ -14,7 +14,7 @@
     {
       "code": "f230fh0g3",
       "name": "Casio Watch",
-      "description": "Product Description",
+      "description": "Some Product Description",
       "price": 65,
       "quantity": 24,
       "inventoryStatus": "INSTOCK",
@@ -27,7 +27,7 @@
       "id": "1001",
       "code": "nvklal433",
       "name": "Black Watch",
-      "description": "Product Description",
+      "description": "Some Product Description",
       "image": "black-watch.jpg",
       "price": 72,
       "category": "Accessories",
@@ -39,7 +39,7 @@
       "id": "1002",
       "code": "zz21cz3c1",
       "name": "Blue Band",
-      "description": "Product Description",
+      "description": "Some Product Description",
       "image": "blue-band.jpg",
       "price": 79,
       "category": "Fitness",
@@ -82,6 +82,30 @@
       "category": "Electronics",
       "image": "",
       "rating": 0
+    },
+    {
+      "code": "bdhff7eue",
+      "name": "Samsung Monitor",
+      "description": "",
+      "price": 299,
+      "quantity": 0,
+      "inventoryStatus": "INSTOCK",
+      "category": "Electronics",
+      "image": "",
+      "rating": 0,
+      "id": "55a1"
+    },
+    {
+      "code": "bdhd46de",
+      "name": "CPU",
+      "description": "",
+      "price": 100,
+      "quantity": 10,
+      "inventoryStatus": "INSTOCK",
+      "category": "Electronics",
+      "image": "",
+      "rating": 0,
+      "id": "c45c"
     }
   ]
 }

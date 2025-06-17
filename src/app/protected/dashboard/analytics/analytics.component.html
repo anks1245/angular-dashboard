@@ -24,6 +24,7 @@
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Status</th>
+                                <th>Description</th>
                                 <th>Action</th>
                             </tr>
                         </ng-template>
@@ -103,7 +104,7 @@
                                 </td>
                                 <td >
                                     <ng-container *ngIf="editingRowKeys[row.value.id]; else statusOutput">
-                                        <p-select [options]="inventoryStatus" formControlName="inventoryStatus" placeholder="Select Status" />
+                                        <p-select [options]="inventoryStatus" formControlName="inventoryStatus" placeholder="Select Status" (onChange)="handleStatusChange(ri, $event)"/>
                                         <div class="text-red-700 text-xs mt-1" *ngIf="getFormGroup(ri).get('inventoryStatus')?.touched && getFormGroup(ri).get('inventoryStatus')?.invalid">
                                             <span>{{getErrorMessage(getFormGroup(ri),"inventoryStatus")}}</span>
                                         </div>
@@ -113,6 +114,21 @@
                                             <p-chip *ngIf="row.value.inventoryStatus == 'OUTOFSTOCK'" [label]="row.value.inventoryStatus" styleClass="chip-text danger"/>
                                             <p-chip *ngIf="row.value.inventoryStatus == 'INSTOCK'" [label]="row.value.inventoryStatus" styleClass="chip-text success"/>
                                             
+                                    </ng-template>
+                                </td>
+                                <td >
+                                    <ng-container *ngIf="editingRowKeys[row.value.id]; else descriptionOutput">
+                                        <input
+                                            pInputText
+                                            type="text"
+                                            style="width: 100px;"
+                                            formControlName="description"/>
+                                        <div class="text-red-700 text-xs mt-1" *ngIf="getFormGroup(ri).get('description')?.touched && getFormGroup(ri).get('description')?.invalid">
+                                            <span>{{getErrorMessage(getFormGroup(ri),"description")}}</span>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #descriptionOutput>
+                                            {{row.value.description}}
                                     </ng-template>
                                 </td>
                                 <td>

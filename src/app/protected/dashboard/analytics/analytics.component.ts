@@ -12,7 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import { ChipModule } from 'primeng/chip';
 import { getFieldErrorMessage } from '../../../utils/FieldErrorHandler';
-import { SelectModule } from 'primeng/select';
+import { SelectChangeEvent, SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-analytics',
@@ -98,7 +98,7 @@ export class AnalyticsComponent {
         id: [uuid],
         code: ["", Validators.required],
         name: ["", Validators.required],
-        description: "",
+        description: [""],
         price: [0.0, [Validators.required, Validators.min(0.0)]],
         quantity: [0, [Validators.required, Validators.min(0)]],
         inventoryStatus: ["", Validators.required],
@@ -150,6 +150,19 @@ export class AnalyticsComponent {
 
     }
 
+    handleStatusChange(ri: number,event: SelectChangeEvent){
+      console.log(event.value)
+      if(event.value == "OUTOFSTOCK"){
+        const setControl = this.getFormGroup(ri).get("description")
+        setControl?.setValidators(Validators.required)
+        setControl?.updateValueAndValidity()
+      }else{
+        const removeControl = this.getFormGroup(ri).get("description")
+        removeControl?.clearValidators()
+        removeControl?.updateValueAndValidity()
+      }
+    }
+
     updateProduct(){
       console.log(this.form.value.products)
       if(this.form.invalid){
@@ -176,7 +189,7 @@ export class AnalyticsComponent {
             this.getProducts()
           },
           error:(err)=>{
-            this.messageService.add({ severity: 'error', summary: 'Failed to add', detail: err.message })
+            this.messageService.add({ severity: 'error', summary: 'Failed to update', detail: err.message })
           }
         })
       })
